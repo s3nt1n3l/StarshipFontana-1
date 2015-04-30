@@ -101,14 +101,13 @@ void SFApp::OnUpdateWorld() {
     }
   }
   for(auto p : projectiles) {
-    for(auto c : coins) {
+    for (auto c : coins) {
       if(p->CollidesWith(c)) {
 	p->HandleCollision();
 	c->HandleCollision();
 	}
      }
   }
-
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
@@ -119,7 +118,6 @@ void SFApp::OnUpdateWorld() {
   aliens.clear();
   aliens = list<shared_ptr<SFAsset>>(tmp);
 }
-
 void SFApp::OnRender() {
   SDL_RenderClear(sf_window->getRenderer());
 
@@ -135,9 +133,8 @@ void SFApp::OnRender() {
   }
 
   for(auto c: coins) {
-    c->OnRender();
+    if(c->IsAlive()) {c->OnRender();}
   }
-
   // Switch the off-screen buffer to be on-screen
   SDL_RenderPresent(sf_window->getRenderer());
 }

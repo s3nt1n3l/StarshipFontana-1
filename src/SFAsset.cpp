@@ -168,4 +168,10 @@ void SFAsset::HandleCollision() {
   if(SFASSET_PROJECTILE == type || SFASSET_ALIEN == type) {
     SetNotAlive();
   }
+  if(SFASSET_PLAYER == type || SFASSET_ALIEN == type) {
+    SetNotAlive();
+  }
+  if(SFASSET_PROJECTILE == type || SFASSET_COIN == type) {
+    SetNotAlive();
+  }
 }
