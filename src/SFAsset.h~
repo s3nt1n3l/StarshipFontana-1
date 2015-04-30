@@ -36,7 +36,7 @@ public:
   virtual void      GoEast();
   virtual void      GoWest();
   virtual void      GoNorth();
-  virtual void      CoinGoWest();
+  virtual void      CoinGoNorth();
   virtual void	    GoSouth();
   virtual void	    PlayerGoNorth();
   virtual void      PlayerGoSouth();
