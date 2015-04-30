@@ -47,9 +47,16 @@ void SFApp::OnEvent(SFEvent& event) {
   case SFEVENT_PLAYER_RIGHT:
     player->GoEast();
     break;
+  case SFEVENT_PLAYER_UP:
+    player->GoNorth();
+    break;
   case SFEVENT_FIRE:
     fire ++;
     FireProjectile();
+    break;
+  case SFEVENT_TICK:
+    tick ++;
+    cout << tick << endl;
     break;
   }
 }
@@ -77,6 +84,7 @@ void SFApp::OnUpdateWorld() {
 
   // Update enemy positions
   for(auto a : aliens) {
+   a->GoSouth();
     // do something here
   }
 

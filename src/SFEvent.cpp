@@ -7,7 +7,7 @@ SFEvent::SFEvent(const SDL_Event & event) {
   switch (event.type) {
   case SDL_QUIT:
     code = SFEVENT_QUIT;
-    break;
+    ;break;
   case SDL_USEREVENT:
     code = SFEVENT_UPDATE;
     break;
@@ -19,6 +19,9 @@ SFEvent::SFEvent(const SDL_Event & event) {
     case SDLK_RIGHT:
       code = SFEVENT_PLAYER_RIGHT;
       break;
+    case SDLK_UP:
+      code = SFEVENT_PLAYER_UP;
+      break;
     case SDLK_SPACE:
       code = SFEVENT_FIRE;
       break;
@@ -26,10 +29,14 @@ SFEvent::SFEvent(const SDL_Event & event) {
       code = SFEVENT_QUIT;
       break;
     }
-    break;
+    ;break;
   default:
     code = SFEVENT_NULL;
     break;
+    code = SFEVENT_TICK;
+    break;
+    code = SFEVENT_ALIEN_SOUTH
+    ;break;
   }
 }
 
