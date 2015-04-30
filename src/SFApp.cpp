@@ -19,7 +19,7 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   }
 
   auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
-  auto pos  = Point2((canvas_w), 430);
+  auto pos  = Point2((canvas_w), rand());
   coin->SetPosition(pos);
   coins.push_back(coin);
 }
@@ -108,6 +108,12 @@ void SFApp::OnUpdateWorld() {
 	}
      }
   }
+    for (auto a: aliens) {
+      if(player->CollidesWith(a)) {
+      player->HandleCollision();
+      a->HandleCollision();
+    }
+  }
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
@@ -122,7 +128,7 @@ void SFApp::OnRender() {
   SDL_RenderClear(sf_window->getRenderer());
 
   // draw the player
-  player->OnRender();
+    if(player->IsAlive()) {player->OnRender();}
 
   for(auto p: projectiles) {
     if(p->IsAlive()) {p->OnRender();}
