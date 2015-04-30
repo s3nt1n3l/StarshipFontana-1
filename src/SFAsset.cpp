@@ -131,15 +131,21 @@ void SFAsset::GoSouth() {
 }
 
 void SFAsset::PlayerGoSouth() {
+  int w,h;
   Vector2 c = *(bbox->centre) + Vector2(0.0f,-15.0f);
+  if(!(c.getY() < 0)) {
   bbox->centre.reset();
   bbox->centre = make_shared<Vector2>(c);
+  }
 }
 
 void SFAsset::PlayerGoNorth() {
+  int w,h;
   Vector2 c = *(bbox->centre) + Vector2(0.0f,15.0f);
+  if(!(c.getY() > 475)) {
   bbox->centre.reset();
   bbox->centre = make_shared<Vector2>(c);
+  }
 }
 
 bool SFAsset::CollidesWith(shared_ptr<SFAsset> other) {
