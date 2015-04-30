@@ -13,13 +13,13 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   for(int i=0; i<number_of_aliens; i++) {
     // place an alien at width/number_of_aliens * i
     auto alien = make_shared<SFAsset>(SFASSET_ALIEN, sf_window);
-    auto pos   = Point2((canvas_w/number_of_aliens) * i, 200.0f);
+    auto pos   = Point2((canvas_w/number_of_aliens) * i, 400.0f);
     alien->SetPosition(pos);
     aliens.push_back(alien);
   }
 
   auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
-  auto pos  = Point2((canvas_w/4), 100);
+  auto pos  = Point2((canvas_w), 430);
   coin->SetPosition(pos);
   coins.push_back(coin);
 }
@@ -48,7 +48,10 @@ void SFApp::OnEvent(SFEvent& event) {
     player->GoEast();
     break;
   case SFEVENT_PLAYER_UP:
-    player->GoNorth();
+    player->PlayerGoNorth();
+    break;
+  case SFEVENT_PLAYER_DOWN:
+    player->PlayerGoSouth();
     break;
   case SFEVENT_FIRE:
     fire ++;
@@ -79,7 +82,7 @@ void SFApp::OnUpdateWorld() {
   }
 
   for(auto c: coins) {
-    c->GoNorth();
+    c->CoinGoWest();
   }
 
   // Update enemy positions
@@ -97,12 +100,20 @@ void SFApp::OnUpdateWorld() {
       }
     }
   }
+  for(auto p : projectiles) {
+    for(auto c : coins) {
+      if(p->CollidesWith(c)) {
+	p->HandleCollision();
+	c->HandleCollision();
+	}
+     }
+  }
 
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
     if(a->IsAlive()) {
-      tmp.push_back(a);
+      tmp.push_back(a);	
     }
   }
   aliens.clear();

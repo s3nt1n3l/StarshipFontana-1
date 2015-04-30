@@ -94,7 +94,7 @@ void SFAsset::OnRender() {
 }
 
 void SFAsset::GoWest() {
-  Vector2 c = *(bbox->centre) + Vector2(-5.0f, 0.0f);
+  Vector2 c = *(bbox->centre) + Vector2(-15.0f, 0.0f);
   if(!(c.getX() < 0)) {
     bbox->centre.reset();
     bbox->centre = make_shared<Vector2>(c);
@@ -105,15 +105,21 @@ void SFAsset::GoEast() {
   int w, h;
   SDL_GetRendererOutputSize(sf_window->getRenderer(), &w, &h);
 
-  Vector2 c = *(bbox->centre) + Vector2(5.0f, 0.0f);
+  Vector2 c = *(bbox->centre) + Vector2(15.0f, .0f);
   if(!(c.getX() > w)) {
     bbox->centre.reset();
     bbox->centre = make_shared<Vector2>(c);
   }
 }
 
+void SFAsset::CoinGoWest() {
+  Vector2 c = *(bbox->centre) + Vector2(-1.0f, 0.0f);
+  bbox->centre.reset();
+  bbox->centre = make_shared<Vector2>(c);
+}
+
 void SFAsset::GoNorth() {
-  Vector2 c = *(bbox->centre) + Vector2(0.0f, 1.0f);
+  Vector2 c = *(bbox->centre) + Vector2(0.0f, 5.0f);
   bbox->centre.reset();
   bbox->centre = make_shared<Vector2>(c);
 }
@@ -125,13 +131,13 @@ void SFAsset::GoSouth() {
 }
 
 void SFAsset::PlayerGoSouth() {
-  Vector2 c = *(bbox->centre) + Vector2(0.0f,-5.0f);
+  Vector2 c = *(bbox->centre) + Vector2(0.0f,-15.0f);
   bbox->centre.reset();
   bbox->centre = make_shared<Vector2>(c);
 }
 
 void SFAsset::PlayerGoNorth() {
-  Vector2 c = *(bbox->centre) + Vector2(0.0f,5.0f);
+  Vector2 c = *(bbox->centre) + Vector2(0.0f,15.0f);
   bbox->centre.reset();
   bbox->centre = make_shared<Vector2>(c);
 }
